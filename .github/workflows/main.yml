@@ -8,19 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-      # - name: Extract Node.js version from .npmrc
-      #   id: node_version
-      #   run: |
-      #     node_version=$(grep -oP 'node\s*=\s*\K\S+' .npmrc)
-      #     echo "NODE_VERSION=$node_version" >> $GITHUB_ENV
+        uses: actions/checkout@v4
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: .npmrc
-          # node-version: ${{ env.NODE_VERSION }}
       - name: Cache pnpm installation
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm-global
           key: ${{ runner.os }}-npm-global-${{ hashFiles('.npmrc') }}
@@ -32,7 +26,7 @@ jobs:
             npm install -g pnpm
           fi
       - name: Cache pnpm store and node_modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.pnpm-store
